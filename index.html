@@ -112,20 +112,25 @@ th {
   margin-top: 30px;
   flex-wrap: wrap;
 }
+
 .actieknop {
-  padding: 14px 28px;
+  padding: 16px 32px;
   font-size: 20px;
   background-color: white;
   color: #009639;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
   min-width: 200px;
+  transition: background-color 0.2s;
+  text-transform: uppercase;
 }
+
 .actieknop:hover {
-  background-color: #e6e6e6;
+  background-color: #f0f0f0;
 }
+
 
   </style>
 </head>
@@ -173,13 +178,8 @@ th {
 <div class="score" id="openStemmen"></div>
   <div class="resultaat" id="resultaat"></div>
 <div class="knoppenrij">
-  <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
-  <button class="resetknop" onclick="resetStemmen()">
-    <i class="fas fa-rotate-right"></i> NIEUWE STEMMING
-  </button>
-  <button class="resetknop" onclick="maakScreenshot()">
-    <i class="fas fa-camera"></i> Maak screenshot
-  </button>
+  <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
+  <button class="actieknop" onclick="maakScreenshot()">📸 Maak screenshot</button>
 </div>
 
 
