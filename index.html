@@ -155,6 +155,37 @@ th {
     font-size: 22px;
   }
 }
+.bovenbalk {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.logo-klein {
+  height: 60px;
+}
+
+.meta-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 16px;
+  color: white;
+}
+
+.meta-info #datumje,
+.meta-info #klokje {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+#aanwezigheid input {
+  font-size: 16px;
+  margin-left: 6px;
+}
   </style>
 </head>
 <body>
@@ -162,13 +193,18 @@ th {
   <div id="klokje"></div>
   <div id="datumje" style="font-size: 18px;"></div>
 </div>
-  <header>
-<img src="logo.png" alt="Logo Ridderkerk" />
-    <h2>Stemming gemeenteraad Ridderkerk</h2>
-  </header>
-  <div id="aanwezigheid">
-    aanwezige leden: <input type="number" id="aanwezig" value="29" onchange="update()">
+<div class="bovenbalk">
+  <img src="logo.png" alt="Logo Ridderkerk" class="logo-klein" />
+  <h2>Stemming gemeenteraad Ridderkerk</h2>
+  <div class="meta-info">
+    <div id="datumje"></div>
+    <div id="klokje"></div>
+    <div id="aanwezigheid">
+      Aanwezige leden: <input type="number" id="aanwezig" value="29" onchange="update()">
+    </div>
   </div>
+</div>
+
   <table id="stemmen">
     <tr id="kop">
       <th>fractie</th>
