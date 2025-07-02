@@ -53,6 +53,19 @@ h2 {
       border: 1px solid #ccc;
       font-size: 18px;
     }
+    th {
+  position: relative;
+  background: black;
+  color: white;
+}
+.kleurbalk {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
     .highlight-voor {
       background-color: #d2f8d2 !important;
     }
@@ -116,8 +129,17 @@ h2 {
   <table id="stemmen">
     <tr id="kop">
       <th>Fractie</th>
-      <th>SGP</th><th>CDA</th><th>PvdA</th><th>Burger op 1</th><th>Echt voor Ridderkerk</th>
-      <th>VVD</th><th>Leefbaar Ridderkerk</th><th>Partij 18PLUS</th><th>ChristenUnie</th><th>GroenLinks</th>
+<th>SGP<div class="kleurbalk" style="background-color: #e17000;"></div></th>
+<th>CDA<div class="kleurbalk" style="background-color: #006233;"></div></th>
+<th>PvdA<div class="kleurbalk" style="background-color: #e11931;"></div></th>
+<th>Burger op 1<div class="kleurbalk" style="background-color: #49aee0;"></div></th>
+<th>Echt voor Ridderkerk<div class="kleurbalk" style="background-color: #b4007f;"></div></th>
+<th>VVD<div class="kleurbalk" style="background-color: #0066cc;"></div></th>
+<th>Leefbaar Ridderkerk<div class="kleurbalk" style="background-color: #7ab800;"></div></th>
+<th>Partij 18PLUS<div class="kleurbalk" style="background-color: #666666;"></div></th>
+<th>ChristenUnie<div class="kleurbalk" style="background-color: #0099cc;"></div></th>
+<th>GroenLinks<div class="kleurbalk" style="background-color: #78be20;"></div></th>
+
     </tr>
     <tr>
       <td>Zetels</td>
