@@ -162,6 +162,7 @@ th {
     <tr><td>TEGEN</td></tr>
   </table>
   <div class="score" id="score">Voor: 0 | Tegen: 0</div>
+<div class="score" id="openStemmen"></div>
   <div class="resultaat" id="resultaat"></div>
   <button class="resetknop" onclick="resetStemmen()">Reset</button>
 
@@ -217,6 +218,12 @@ tegenBtn.onclick = () => {
         totaal += z;
         if (stemmen[i] === 'voor') voor += z;
         else if (stemmen[i] === 'tegen') tegen += z;
+        let open = 0;
+inputs.forEach((input, i) => {
+  const z = parseInt(input.value || 0);
+  if (stemmen[i] === null) open += z;
+});
+document.getElementById('openStemmen').innerText = open > 0 ? `Nog ${open} stemmen uit te brengen` : '';
       });
 
       const aanwezig = parseInt(document.getElementById('aanwezig').value || 0);
