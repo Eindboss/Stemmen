@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stemming gemeenteraad</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
+
     body {
       font-family: 'Jost', sans-serif;
       margin: 0;
@@ -12,6 +14,7 @@
       background-color: #009639;
       color: white;
     }
+
     h2 {
       text-align: center;
       margin: 3px 0 6px;
@@ -20,6 +23,18 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+
+    #aanwezigheid {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      font-size: 18px;
+      text-align: center;
+    }
+
     table {
       width: 100%;
       table-layout: fixed;
@@ -29,34 +44,42 @@
       margin-top: 20px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
+
     th, td {
       text-align: center;
       padding: 10px;
       border: 1px solid #ccc;
       font-size: 14px;
       word-wrap: break-word;
+      word-break: break-word;
     }
+
     th {
       position: relative;
       background: #02441C;
       color: white;
       font-weight: 600;
     }
+
     .kleurbalk {
       position: absolute;
       bottom: 0;
       left: 0;
       height: 5px;
       width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .highlight-voor {
       background-color: #d2f8d2 !important;
       color: #02441C !important;
     }
+
     .highlight-tegen {
       background-color: #f8d2d2 !important;
       color: #02441C !important;
     }
+
     .stemknop {
       width: 70px;
       height: 70px;
@@ -66,28 +89,126 @@
       border: none;
       cursor: pointer;
     }
+
     .voor { background-color: #c4f0c4; }
     .tegen { background-color: #f0c4c4; }
     .actief { border: 4px solid #000; }
+
+    .score {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 26px;
+      margin-top: 20px;
+      font-weight: bold;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .nog-uit-te-brengen {
+      color: #FFD700;
+    }
+
+    .resultaat {
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      display: block;
+      min-width: 300px;
+    }
+
+    .knoppenrij {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .actieknop {
+      padding: 16px 32px;
+      font-size: 20px;
+      background-color: white;
+      color: #009639;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      min-width: 200px;
+      transition: background-color 0.2s;
+      text-transform: uppercase;
+    }
+
+    .actieknop:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 1024px) {
+      h2 { font-size: 28px; margin: 6px 0; }
+      .stemknop { width: 60px; height: 60px; font-size: 22px; margin: 4px; }
+      th { font-size: 14px; padding: 6px; }
+      .resultaat { font-size: 30px; }
+      .score { font-size: 22px; }
+    }
+
+    .bovenbalk {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .logo-klein { height: 60px; }
+
+    .meta-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 16px;
+      color: white;
+    }
+
+    #aanwezigheid input {
+      font-size: 16px;
+      margin-left: 6px;
+    }
   </style>
 </head>
 <body>
+<div class="bovenbalk">
+  <img src="logo.png" alt="Logo Ridderkerk" class="logo-klein" />
   <h2>Stemming gemeenteraad</h2>
+  <div class="meta-info">
+    <div id="datumtijdje"></div>
+    <div id="aanwezigheid">
+      aanwezige leden: <input type="number" id="aanwezig" value="29" onchange="update()">
+    </div>
+  </div>
+</div>
 
   <table id="stemmen">
     <tr id="kop">
-      <th>SGP<div class="kleurbalk" style="background-color: #e17000;"></div></th>
-      <th>CDA<div class="kleurbalk" style="background-color: #006233;"></div></th>
-      <th>PvdA<div class="kleurbalk" style="background-color: #e11931;"></div></th>
-      <th>Burger op 1<div class="kleurbalk" style="background-color: #49aee0;"></div></th>
-      <th>EvR<div class="kleurbalk" style="background-color: #b4007f;"></div></th>
-      <th>VVD<div class="kleurbalk" style="background-color: #0066cc;"></div></th>
-      <th>LR<div class="kleurbalk" style="background-color: #7ab800;"></div></th>
-      <th>P18P<div class="kleurbalk" style="background-color: #666666;"></div></th>
-      <th>CU<div class="kleurbalk" style="background-color: #0099cc;"></div></th>
-      <th>GL<div class="kleurbalk" style="background-color: #78be20;"></div></th>
+      <th>fractie</th>
+<th>SGP<div class="kleurbalk" style="background-color: #e17000;"></div></th>
+<th>CDA<div class="kleurbalk" style="background-color: #006233;"></div></th>
+<th>PvdA<div class="kleurbalk" style="background-color: #e11931;"></div></th>
+<th>Burger op 1<div class="kleurbalk" style="background-color: #49aee0;"></div></th>
+<th>Echt voor Ridderkerk<div class="kleurbalk" style="background-color: #b4007f;"></div></th>
+<th>VVD<div class="kleurbalk" style="background-color: #0066cc;"></div></th>
+<th>Leefbaar Ridderkerk<div class="kleurbalk" style="background-color: #7ab800;"></div></th>
+<th>Partij 18PLUS<div class="kleurbalk" style="background-color: #666666;"></div></th>
+<th>ChristenUnie<div class="kleurbalk" style="background-color: #0099cc;"></div></th>
+<th>GroenLinks<div class="kleurbalk" style="background-color: #78be20;"></div></th>
+
     </tr>
     <tr>
+      <td>zetels</td>
       <td><input type="number" value="5"></td>
       <td><input type="number" value="2"></td>
       <td><input type="number" value="2"></td>
@@ -99,55 +220,158 @@
       <td><input type="number" value="3"></td>
       <td><input type="number" value="2"></td>
     </tr>
-    <tr id="voorRij"></tr>
-    <tr id="tegenRij"></tr>
+    <tr><td style="text-transform: uppercase; font-weight: bold;">VOOR</td></tr>
+<tr><td style="text-transform: uppercase; font-weight: bold;">TEGEN</td></tr>
   </table>
+<div class="score">
+  <span id="openStemmen" style="margin-right: 20px;"></span>
+  <span id="score">VOOR: 0 | TEGEN: 0</span>
+</div>
+  <div class="resultaat" id="resultaat"></div>
+<div class="knoppenrij">
+  <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
+  <button class="actieknop" onclick="maakScreenshot()">📸 Maak screenshot</button>
+</div>
+
 
   <script>
-    const stemmen = Array(10).fill(null);
+    const voorRij = document.querySelectorAll('#stemmen tr')[2];
+    const tegenRij = document.querySelectorAll('#stemmen tr')[3];
     const kopcellen = document.querySelectorAll('#kop th');
-    const voorRij = document.getElementById('voorRij');
-    const tegenRij = document.getElementById('tegenRij');
+    const stemmen = Array(10).fill(null);
+    const resultaat = document.getElementById('resultaat');
+    const score = document.getElementById('score');
 
     for (let i = 0; i < 10; i++) {
       const voorBtn = document.createElement('button');
       voorBtn.className = 'stemknop voor';
       voorBtn.innerText = '✓';
       voorBtn.onclick = () => {
-        stemmen[i] = (stemmen[i] === 'voor') ? null : 'voor';
-        update(); highlight(i);
-      };
+  stemmen[i] = (stemmen[i] === 'voor') ? null : 'voor';
+  update(); highlight(i);
+};
       voorRij.appendChild(document.createElement('td')).appendChild(voorBtn);
 
       const tegenBtn = document.createElement('button');
       tegenBtn.className = 'stemknop tegen';
       tegenBtn.innerText = '✗';
-      tegenBtn.onclick = () => {
-        stemmen[i] = (stemmen[i] === 'tegen') ? null : 'tegen';
-        update(); highlight(i);
-      };
+tegenBtn.onclick = () => {
+  stemmen[i] = (stemmen[i] === 'tegen') ? null : 'tegen';
+  update(); highlight(i);
+};
       tegenRij.appendChild(document.createElement('td')).appendChild(tegenBtn);
     }
 
     function highlight(i) {
-      const voor = voorRij.children[i].firstChild;
-      const tegen = tegenRij.children[i].firstChild;
+      const voor = voorRij.children[i + 1].firstChild;
+      const tegen = tegenRij.children[i + 1].firstChild;
       voor.classList.remove('actief');
       tegen.classList.remove('actief');
-      kopcellen[i].classList.remove('highlight-voor', 'highlight-tegen');
+      kopcellen[i + 1].classList.remove('highlight-voor', 'highlight-tegen');
       if (stemmen[i] === 'voor') {
         voor.classList.add('actief');
-        kopcellen[i].classList.add('highlight-voor');
+        kopcellen[i + 1].classList.add('highlight-voor');
       }
       else if (stemmen[i] === 'tegen') {
         tegen.classList.add('actief');
-        kopcellen[i].classList.add('highlight-tegen');
+        kopcellen[i + 1].classList.add('highlight-tegen');
       }
     }
 
     function update() {
-      // Logica voor bijwerken (optioneel uit te breiden)
+      let voor = 0, tegen = 0, totaal = 0;
+      const inputs = document.querySelectorAll('#stemmen tr:nth-child(2) input');
+      inputs.forEach((input, i) => {
+        const z = parseInt(input.value || 0);
+        totaal += z;
+        if (stemmen[i] === 'voor') voor += z;
+        else if (stemmen[i] === 'tegen') tegen += z;
+        let open = 0;
+inputs.forEach((input, i) => {
+  const z = parseInt(input.value || 0);
+  if (stemmen[i] === null) open += z;
+});
+const openStemEl = document.getElementById('openStemmen');
+if (open > 0) {
+  openStemEl.innerHTML = `<span class="nog-uit-te-brengen">Nog ${open} stemmen uit te brengen</span>`;
+} else {
+  openStemEl.innerHTML = '';
+}
+      });
+
+      const aanwezig = parseInt(document.getElementById('aanwezig').value || 0);
+      score.innerText = `VOOR: ${voor} | TEGEN: ${tegen}`;
+
+      resultaat.className = "resultaat";
+      if (totaal !== aanwezig) {
+        resultaat.innerText = 'Let op: zetels ≠ aanwezigen!';
+        resultaat.style.backgroundColor = '#ffcc00';
+        resultaat.style.color = '#000';
+      } else if (voor > aanwezig / 2) {
+        resultaat.innerText = 'AANGENOMEN';
+        resultaat.style.backgroundColor = '#00cc00';
+        resultaat.style.color = '#fff';
+      } else if (tegen > aanwezig / 2) {
+        resultaat.innerText = 'VERWORPEN';
+        resultaat.style.backgroundColor = '#cc0000';
+        resultaat.style.color = '#fff';
+      } else if (voor === tegen && voor > 0) {
+        resultaat.innerText = 'STEMMEN STAKEN';
+        resultaat.style.backgroundColor = '#ff9900';
+        resultaat.style.color = '#000';
+      } else {
+        resultaat.innerText = '';
+        resultaat.style.backgroundColor = 'transparent';
+      }
     }
+
+    function resetStemmen() {
+      stemmen.fill(null);
+      for (let i = 0; i < 10; i++) {
+        highlight(i);
+      }
+      update();
+    }
+
+    update();
   </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  function maakScreenshot() {
+    html2canvas(document.body).then(function(canvas) {
+      const link = document.createElement('a');
+      link.download = 'stemuitslag.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  }
+</script>
+
+  <script>
+function updateClock() {
+  const now = new Date();
+
+  const tijd = now.toLocaleTimeString('nl-NL', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  const datum = now.toLocaleDateString('nl-NL', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+document.getElementById('datumtijdje').textContent = `${datum} | ${tijd}`;
+}
+
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
+
 </body>
 </html>
