@@ -19,20 +19,17 @@
       padding: 10px;
     }
     header img {
-      height: 100px;
+      height: 60px;
     }
-h2 {
-  text-align: center;
-  margin: 4px 0 8px;
-  font-weight: 700;
-  font-size: 28px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-#aanwezigheid {
-  text-align: center;
-  margin: 10px 0;
-}
+    h2 {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    #aanwezigheid {
+      text-align: center;
+      margin: 20px 0;
+    }
     input[type="number"] {
       width: 60px;
       font-size: 18px;
@@ -106,7 +103,7 @@ h2 {
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo Ridderkerk" />
+    <img src="https://eindboss.github.io/stemming-ridderkerk/logo.png" alt="Logo Ridderkerk" />
     <h2>Stemming gemeenteraad Ridderkerk</h2>
   </header>
   <div id="aanwezigheid">
@@ -222,5 +219,21 @@ h2 {
 
     update();
   </script>
+
+  <button class="resetknop" onclick="maakScreenshot()">📸 Maak screenshot</button>
+
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  function maakScreenshot() {
+    html2canvas(document.body).then(function(canvas) {
+      const link = document.createElement('a');
+      link.download = 'stemuitslag.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  }
+</script>
+
 </body>
 </html>
