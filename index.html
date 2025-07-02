@@ -201,10 +201,9 @@ th {
   <img src="logo.png" alt="Logo Ridderkerk" class="logo-klein" />
   <h2>Stemming gemeenteraad</h2>
   <div class="meta-info">
-    <div id="datumje"></div>
-    <div id="klokje"></div>
+<div id="datumtijdje"></div>
     <div id="aanwezigheid">
-      Aanwezige leden: <input type="number" id="aanwezig" value="29" onchange="update()">
+      aanwezige leden: <input type="number" id="aanwezig" value="29" onchange="update()">
     </div>
   </div>
 </div>
@@ -317,7 +316,7 @@ if (open > 0) {
       });
 
       const aanwezig = parseInt(document.getElementById('aanwezig').value || 0);
-      score.innerText = `Voor: ${voor} | Tegen: ${tegen}`;
+      score.innerText = `VOOR: ${voor} | TEGEN: ${tegen}`;
 
       resultaat.className = "resultaat";
       if (totaal !== aanwezig) {
@@ -383,8 +382,7 @@ function updateClock() {
     year: 'numeric'
   });
 
-  document.getElementById('klokje').textContent = tijd;
-  document.getElementById('datumje').textContent = datum;
+document.getElementById('datumtijdje').textContent = `${datum} | ${tijd}`;
 }
 
   setInterval(updateClock, 1000);
