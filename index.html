@@ -135,7 +135,10 @@ th {
   </style>
 </head>
 <body>
-  <div id="klokje" style="position: absolute; top: 10px; right: 20px; font-size: 25px; color: white; font-family: 'Jost', sans-serif;"></div>
+<div style="position: absolute; top: 10px; right: 20px; text-align: right; font-size: 20px; color: white; font-family: 'Jost', sans-serif;">
+  <div id="klokje"></div>
+  <div id="datumje" style="font-size: 18px;"></div>
+</div>
   <header>
 <img src="logo.png" alt="Logo Ridderkerk" />
     <h2>Stemming gemeenteraad Ridderkerk</h2>
@@ -294,15 +297,25 @@ document.getElementById('openStemmen').innerText = open > 0 ? `Nog ${open} stemm
 </script>
 
   <script>
-  function updateClock() {
-    const now = new Date();
-    const tijd = now.toLocaleTimeString('nl-NL', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
-    document.getElementById('klokje').textContent = tijd;
-  }
+function updateClock() {
+  const now = new Date();
+
+  const tijd = now.toLocaleTimeString('nl-NL', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  const datum = now.toLocaleDateString('nl-NL', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  document.getElementById('klokje').textContent = tijd;
+  document.getElementById('datumje').textContent = datum;
+}
 
   setInterval(updateClock, 1000);
   updateClock();
