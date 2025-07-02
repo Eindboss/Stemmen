@@ -102,6 +102,9 @@ th {
   flex-wrap: wrap;
   text-align: center;
 }
+    .nog-uit-te-brengen {
+  color: #ff9900;
+}
     .resultaat {
       text-align: center;
       font-size: 40px;
@@ -305,7 +308,12 @@ inputs.forEach((input, i) => {
   const z = parseInt(input.value || 0);
   if (stemmen[i] === null) open += z;
 });
-document.getElementById('openStemmen').innerText = open > 0 ? `Nog ${open} stemmen uit te brengen` : '';
+const openStemEl = document.getElementById('openStemmen');
+if (open > 0) {
+  openStemEl.innerHTML = `<span class="nog-uit-te-brengen">Nog ${open} stemmen uit te brengen</span>`;
+} else {
+  openStemEl.innerHTML = '';
+}
       });
 
       const aanwezig = parseInt(document.getElementById('aanwezig').value || 0);
