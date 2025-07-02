@@ -49,7 +49,7 @@
       text-align: center;
       padding: 10px;
       border: 1px solid #ccc;
-      font-size: 14px;
+      font-size: 16px;
       word-wrap: break-word;
       word-break: break-word;
     }
@@ -197,7 +197,6 @@
 
   <table id="stemmen">
     <tr id="kop">
-     <th class="kolom-fractie">fractie</th>
 <th>SGP<div class="kleurbalk" style="background-color: #e17000;"></div></th>
 <th>CDA<div class="kleurbalk" style="background-color: #006233;"></div></th>
 <th>PvdA<div class="kleurbalk" style="background-color: #e11931;"></div></th>
@@ -211,7 +210,6 @@
 
     </tr>
     <tr>
-      <td>zetels</td>
       <td><input type="number" value="5"></td>
       <td><input type="number" value="2"></td>
       <td><input type="number" value="2"></td>
@@ -223,8 +221,8 @@
       <td><input type="number" value="3"></td>
       <td><input type="number" value="2"></td>
     </tr>
-    <tr><td style="text-transform: uppercase; font-weight: bold;">VOOR</td></tr>
-<tr><td style="text-transform: uppercase; font-weight: bold;">TEGEN</td></tr>
+<tr id="voor-rij"></tr>
+<tr id="tegen-rij"></tr>
   </table>
 <div class="score">
   <span id="openStemmen" style="margin-right: 20px;"></span>
@@ -238,8 +236,8 @@
 
 
   <script>
-    const voorRij = document.querySelectorAll('#stemmen tr')[2];
-    const tegenRij = document.querySelectorAll('#stemmen tr')[3];
+const voorRij = document.getElementById('voor-rij');
+const tegenRij = document.getElementById('tegen-rij');
     const kopcellen = document.querySelectorAll('#kop th');
     const stemmen = Array(10).fill(null);
     const resultaat = document.getElementById('resultaat');
