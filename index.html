@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stemming gemeenteraad</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
+
     body {
       font-family: 'Jost', sans-serif;
       margin: 0;
@@ -15,30 +14,27 @@
       background-color: #009639;
       color: white;
     }
-    header {
+
+    h2 {
       text-align: center;
-      padding: 0px;
+      margin: 3px 0 6px;
+      font-weight: 700;
+      font-size: 35px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    header img {
-      height: 130px;
+
+    #aanwezigheid {
+      text-align: center;
+      margin: 10px 0;
     }
-h2 {
-  text-align: center;
-  margin: 3px 0 6px;
-  font-weight: 700;
-  font-size: 35px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-#aanwezigheid {
-  text-align: center;
-  margin: 10px 0;
-}
+
     input[type="number"] {
       width: 60px;
       font-size: 18px;
       text-align: center;
     }
+
     table {
       width: 100%;
       table-layout: fixed;
@@ -48,37 +44,42 @@ h2 {
       margin-top: 20px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
+
     th, td {
       text-align: center;
       padding: 10px;
       border: 1px solid #ccc;
       font-size: 14px;
-       word-wrap: break-word;
-  word-break: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
     }
-th {
-  position: relative;
-  background: #02441C;
-  color: white;
-  font-weight: 600;
-}
-    
-.kleurbalk {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 5px;
-  width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
+
+    th {
+      position: relative;
+      background: #02441C;
+      color: white;
+      font-weight: 600;
+    }
+
+    .kleurbalk {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 5px;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
     .highlight-voor {
       background-color: #d2f8d2 !important;
       color: #02441C !important;
     }
+
     .highlight-tegen {
       background-color: #f8d2d2 !important;
       color: #02441C !important;
     }
+
     .stemknop {
       width: 70px;
       height: 70px;
@@ -88,23 +89,27 @@ th {
       border: none;
       cursor: pointer;
     }
+
     .voor { background-color: #c4f0c4; }
     .tegen { background-color: #f0c4c4; }
     .actief { border: 4px solid #000; }
-.score {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  font-size: 26px;
-  margin-top: 20px;
-  font-weight: bold;
-  flex-wrap: wrap;
-  text-align: center;
-}
+
+    .score {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 26px;
+      margin-top: 20px;
+      font-weight: bold;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
     .nog-uit-te-brengen {
-  color: #FFD700;
-}
+      color: #FFD700;
+    }
+
     .resultaat {
       text-align: center;
       font-size: 40px;
@@ -115,85 +120,64 @@ th {
       display: block;
       min-width: 300px;
     }
-.knoppenrij {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-}
 
-.actieknop {
-  padding: 16px 32px;
-  font-size: 20px;
-  background-color: white;
-  color: #009639;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  min-width: 200px;
-  transition: background-color 0.2s;
-  text-transform: uppercase;
-}
+    .knoppenrij {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
 
-.actieknop:hover {
-  background-color: #f0f0f0;
-}
+    .actieknop {
+      padding: 16px 32px;
+      font-size: 20px;
+      background-color: white;
+      color: #009639;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      min-width: 200px;
+      transition: background-color 0.2s;
+      text-transform: uppercase;
+    }
 
-@media (max-width: 1024px) {
-  h2 {
-    font-size: 28px;
-    margin: 6px 0;
-  }
-  .stemknop {
-    width: 60px;
-    height: 60px;
-    font-size: 22px;
-    margin: 4px;
-  }
-  th {
-    font-size: 14px;
-    padding: 6px;
-  }
-  .resultaat {
-    font-size: 30px;
-  }
-  .score {
-    font-size: 22px;
-  }
-}
-.bovenbalk {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    .actieknop:hover {
+      background-color: #f0f0f0;
+    }
 
-.logo-klein {
-  height: 60px;
-}
+    @media (max-width: 1024px) {
+      h2 { font-size: 28px; margin: 6px 0; }
+      .stemknop { width: 60px; height: 60px; font-size: 22px; margin: 4px; }
+      th { font-size: 14px; padding: 6px; }
+      .resultaat { font-size: 30px; }
+      .score { font-size: 22px; }
+    }
 
-.meta-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 16px;
-  color: white;
-}
+    .bovenbalk {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
 
-.meta-info #datumje,
-.meta-info #klokje {
-  font-size: 16px;
-  margin-bottom: 2px;
-}
+    .logo-klein { height: 60px; }
 
-#aanwezigheid input {
-  font-size: 16px;
-  margin-left: 6px;
-}
+    .meta-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 16px;
+      color: white;
+    }
+
+    #aanwezigheid input {
+      font-size: 16px;
+      margin-left: 6px;
+    }
   </style>
 </head>
 <body>
@@ -201,7 +185,7 @@ th {
   <img src="logo.png" alt="Logo Ridderkerk" class="logo-klein" />
   <h2>Stemming gemeenteraad</h2>
   <div class="meta-info">
-<div id="datumtijdje"></div>
+    <div id="datumtijdje"></div>
     <div id="aanwezigheid">
       aanwezige leden: <input type="number" id="aanwezig" value="29" onchange="update()">
     </div>
