@@ -150,13 +150,19 @@ h2 {
       const voorBtn = document.createElement('button');
       voorBtn.className = 'stemknop voor';
       voorBtn.innerText = '✓';
-      voorBtn.onclick = () => { stemmen[i] = 'voor'; update(); highlight(i); };
+      voorBtn.onclick = () => {
+  stemmen[i] = (stemmen[i] === 'voor') ? null : 'voor';
+  update(); highlight(i);
+};
       voorRij.appendChild(document.createElement('td')).appendChild(voorBtn);
 
       const tegenBtn = document.createElement('button');
       tegenBtn.className = 'stemknop tegen';
       tegenBtn.innerText = '✗';
-      tegenBtn.onclick = () => { stemmen[i] = 'tegen'; update(); highlight(i); };
+tegenBtn.onclick = () => {
+  stemmen[i] = (stemmen[i] === 'tegen') ? null : 'tegen';
+  update(); highlight(i);
+};
       tegenRij.appendChild(document.createElement('td')).appendChild(tegenBtn);
     }
 
