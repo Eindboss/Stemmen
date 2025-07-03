@@ -15,6 +15,19 @@
       color: white;
     }
 
+    .timer-label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: white;
+}
+    
+    .timer-container {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+    
     h2 {
       text-align: center;
       margin: 3px 0 6px;
@@ -107,11 +120,11 @@
   margin-top: 30px;
 }
     
+
 .timer-blok {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  text-align: center;
 }
+
 
 .stopwatch-title {
   font-weight: bold;
@@ -151,20 +164,16 @@
       min-width: 300px;
     }
 
-.actieknoppen-verticaal {
-  width: 220px; /* vaste breedte voor de hele knoppenkolom */
-}
 
-.actieknoppen-verticaal button {
-  width: 100%; /* laat knoppen de volledige breedte van de kolom benutten */
-}
-
-    
 .actieknoppen-verticaal {
   display: flex;
   flex-direction: column;
+  width: 220px;
   gap: 20px;
-  align-items: center;
+}
+
+.actieknoppen-verticaal button {
+  width: 100%;
 }
     
     .actieknop {
@@ -182,8 +191,9 @@
     }
 .actiecontainer {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end; /* onderkanten uitlijnen */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
   margin-top: 30px;
   flex-wrap: wrap;
 }
@@ -205,14 +215,7 @@
   margin-top: 30px;
   flex-wrap: wrap;
 }
-
-.actieknoppen-verticaal {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-    
+  
 .knoppen-links {
   display: flex;
   justify-content: center;
@@ -362,35 +365,35 @@
 </div>
   <div class="resultaat" id="resultaat"></div>
 <div class="actiecontainer">
-  <div class="knoppen-timers-gecentreerd">
+  <div class="actieknoppen-verticaal">
+    <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
+    <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
+  </div>
+
+  <div class="timer-container">
     <div class="timer-blok">
+      <div class="timer-label">Behandeltijd</div>
       <div class="stopwatch-inner">
-        <div class="stopwatch-title">Behandeltijd</div>
-        <div class="stopwatch-time" id="behandeltijd">00:00</div>
+        <div class="stopwatch-time" id="stopwatchL">00:00</div>
         <div class="stopwatch-knoppen">
-          <button onclick="toggleTimer('behandeltijd')" id="toggleBehandeltijd">Start</button>
-          <button onclick="resetTimer('behandeltijd')">Reset</button>
+          <button onclick="toggleTimerL()" id="toggleKnopL">Start</button>
+          <button onclick="resetTimerL()">Reset</button>
         </div>
       </div>
     </div>
-
-    <div class="actieknoppen-verticaal">
-      <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
-      <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
-    </div>
-
     <div class="timer-blok">
+      <div class="timer-label">Spreektijd</div>
       <div class="stopwatch-inner">
-        <div class="stopwatch-title">Spreektijd</div>
-        <div class="stopwatch-time" id="spreektijd">00:00</div>
+        <div class="stopwatch-time" id="stopwatchR">00:00</div>
         <div class="stopwatch-knoppen">
-          <button onclick="toggleTimer('spreektijd')" id="toggleSpreektijd">Start</button>
-          <button onclick="resetTimer('spreektijd')">Reset</button>
+          <button onclick="toggleTimerR()" id="toggleKnopR">Start</button>
+          <button onclick="resetTimerR()">Reset</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 
 
@@ -534,47 +537,64 @@ document.getElementById('datumtijdje').textContent = `${datum} | ${tijd}`;
   updateClock();
 </script>
 <script>
-  const stopwatchData = {
-    spreektijd: { running: false, seconds: 0, interval: null },
-    behandeltijd: { running: false, seconds: 0, interval: null }
-  };
+let stopwatchIntervalL, stopwatchIntervalR;
+let runningL = false, runningR = false;
+let secondsL = 0, secondsR = 0;
 
-  function updateDisplay(timerId) {
-    const { seconds } = stopwatchData[timerId];
-    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const secs = String(seconds % 60).padStart(2, '0');
-    document.getElementById(timerId).textContent = `${mins}:${secs}`;
+function updateDisplay(id, seconds) {
+  const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const secs = String(seconds % 60).padStart(2, '0');
+  document.getElementById(id).textContent = `${mins}:${secs}`;
+}
+
+function toggleTimerL() {
+  if (runningL) {
+    clearInterval(stopwatchIntervalL);
+    document.getElementById("toggleKnopL").textContent = "Hervat";
+  } else {
+    stopwatchIntervalL = setInterval(() => {
+      secondsL++;
+      updateDisplay("stopwatchL", secondsL);
+    }, 1000);
+    document.getElementById("toggleKnopL").textContent = "Pauzeer";
   }
+  runningL = !runningL;
+}
 
-  function toggleTimer(timerId) {
-    const data = stopwatchData[timerId];
-    if (data.running) {
-      clearInterval(data.interval);
-      document.getElementById(`toggle${capitalize(timerId)}`).textContent = "Hervat";
-    } else {
-      data.interval = setInterval(() => {
-        data.seconds++;
-        updateDisplay(timerId);
-      }, 1000);
-      document.getElementById(`toggle${capitalize(timerId)}`).textContent = "Pauzeer";
-    }
-    data.running = !data.running;
+function resetTimerL() {
+  clearInterval(stopwatchIntervalL);
+  runningL = false;
+  secondsL = 0;
+  updateDisplay("stopwatchL", secondsL);
+  document.getElementById("toggleKnopL").textContent = "Start";
+}
+
+function toggleTimerR() {
+  if (runningR) {
+    clearInterval(stopwatchIntervalR);
+    document.getElementById("toggleKnopR").textContent = "Hervat";
+  } else {
+    stopwatchIntervalR = setInterval(() => {
+      secondsR++;
+      updateDisplay("stopwatchR", secondsR);
+    }, 1000);
+    document.getElementById("toggleKnopR").textContent = "Pauzeer";
   }
+  runningR = !runningR;
+}
 
-  function resetTimer(timerId) {
-    clearInterval(stopwatchData[timerId].interval);
-    stopwatchData[timerId] = { running: false, seconds: 0, interval: null };
-    updateDisplay(timerId);
-    document.getElementById(`toggle${capitalize(timerId)}`).textContent = "Start";
-  }
+function resetTimerR() {
+  clearInterval(stopwatchIntervalR);
+  runningR = false;
+  secondsR = 0;
+  updateDisplay("stopwatchR", secondsR);
+  document.getElementById("toggleKnopR").textContent = "Start";
+}
 
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  updateDisplay('spreektijd');
-  updateDisplay('behandeltijd');
+updateDisplay("stopwatchL", secondsL);
+updateDisplay("stopwatchR", secondsR);
 </script>
+
 
 </body>
 </html>
