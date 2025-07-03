@@ -145,35 +145,44 @@
   flex-wrap: wrap;
 }
 
-.knoppenrij {
+.knoppen-container {
   display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.knoppen-links {
+  display: flex;
+  justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  flex-grow: 1;
 }
 
 .stopwatch-blok {
   display: flex;
+  align-items: flex-end;
 }
 
 .stopwatch-inner {
   background: white;
   color: #02441C;
-  padding: 24px 36px; /* groter dan knoppen */
+  padding: 16px 32px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   font-family: 'Jost', sans-serif;
   font-size: 18px;
   text-align: center;
-  min-width: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-width: 200px;
 }
 
 .stopwatch-time {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .stopwatch-knoppen {
@@ -192,7 +201,7 @@
   font-weight: bold;
   font-size: 16px;
   text-transform: uppercase;
-  width: 100px;
+  width: 100%;
 }
 
 .stopwatch-knoppen button:hover {
@@ -293,12 +302,11 @@
   <span id="score">VOOR: 0 | TEGEN: 0</span>
 </div>
   <div class="resultaat" id="resultaat"></div>
-<div class="actiecontainer">
-  <div class="knoppenrij">
+<div class="knoppen-container">
+  <div class="knoppen-links">
     <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
     <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
   </div>
-
   <div class="stopwatch-blok">
     <div class="stopwatch-inner">
       <div class="stopwatch-time" id="stopwatch">00:00</div>
