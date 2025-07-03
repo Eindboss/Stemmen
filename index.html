@@ -519,39 +519,47 @@ document.getElementById('datumtijdje').textContent = `${datum} | ${tijd}`;
   updateClock();
 </script>
 <script>
-  let stopwatchInterval;
-  let running = false;
-  let seconds = 0;
+  const stopwatchData = {
+    spreektijd: { running: false, seconds: 0, interval: null },
+    behandeltijd: { running: false, seconds: 0, interval: null }
+  };
 
-  function updateStopwatchDisplay() {
+  function updateDisplay(timerId) {
+    const { seconds } = stopwatchData[timerId];
     const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
     const secs = String(seconds % 60).padStart(2, '0');
-    document.getElementById("stopwatch").textContent = `${mins}:${secs}`;
+    document.getElementById(timerId).textContent = `${mins}:${secs}`;
   }
 
-  function toggleTimer() {
-    if (running) {
-      clearInterval(stopwatchInterval);
-      document.getElementById("toggleKnop").textContent = "Hervat";
+  function toggleTimer(timerId) {
+    const data = stopwatchData[timerId];
+    if (data.running) {
+      clearInterval(data.interval);
+      document.getElementById(`toggle${capitalize(timerId)}`).textContent = "Hervat";
     } else {
-      stopwatchInterval = setInterval(() => {
-        seconds++;
-        updateStopwatchDisplay();
+      data.interval = setInterval(() => {
+        data.seconds++;
+        updateDisplay(timerId);
       }, 1000);
-      document.getElementById("toggleKnop").textContent = "Pauzeer";
+      document.getElementById(`toggle${capitalize(timerId)}`).textContent = "Pauzeer";
     }
-    running = !running;
+    data.running = !data.running;
   }
 
-  function resetTimer() {
-    clearInterval(stopwatchInterval);
-    running = false;
-    seconds = 0;
-    updateStopwatchDisplay();
-    document.getElementById("toggleKnop").textContent = "Start";
+  function resetTimer(timerId) {
+    clearInterval(stopwatchData[timerId].interval);
+    stopwatchData[timerId] = { running: false, seconds: 0, interval: null };
+    updateDisplay(timerId);
+    document.getElementById(`toggle${capitalize(timerId)}`).textContent = "Start";
   }
 
-  updateStopwatchDisplay();
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  updateDisplay('spreektijd');
+  updateDisplay('behandeltijd');
 </script>
+
 </body>
 </html>
