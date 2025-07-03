@@ -98,11 +98,19 @@
   gap: 40px;
   flex-wrap: wrap;
 }
-
-.timer-blokken {
+.knoppen-timers-gecentreerd {
   display: flex;
-  gap: 30px;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
   flex-wrap: wrap;
+  margin-top: 30px;
+}
+    
+.timer-blok {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .stopwatch-title {
@@ -151,6 +159,14 @@
   width: 100%; /* laat knoppen de volledige breedte van de kolom benutten */
 }
 
+    
+.actieknoppen-verticaal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+    
     .actieknop {
       padding: 16px 32px;
       font-size: 20px;
@@ -346,37 +362,36 @@
 </div>
   <div class="resultaat" id="resultaat"></div>
 <div class="actiecontainer">
-  <div class="knoppen-timers-combi">
+  <div class="knoppen-timers-gecentreerd">
+    <div class="timer-blok">
+      <div class="stopwatch-inner">
+        <div class="stopwatch-title">Behandeltijd</div>
+        <div class="stopwatch-time" id="behandeltijd">00:00</div>
+        <div class="stopwatch-knoppen">
+          <button onclick="toggleTimer('behandeltijd')" id="toggleBehandeltijd">Start</button>
+          <button onclick="resetTimer('behandeltijd')">Reset</button>
+        </div>
+      </div>
+    </div>
+
     <div class="actieknoppen-verticaal">
       <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
       <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
     </div>
 
-    <div class="timer-blokken">
-      <div class="stopwatch-blok">
-        <div class="stopwatch-inner">
-          <div class="stopwatch-title">Spreektijd</div>
-          <div class="stopwatch-time" id="spreektijd">00:00</div>
-          <div class="stopwatch-knoppen">
-            <button onclick="toggleTimer('spreektijd')" id="toggleSpreektijd">Start</button>
-            <button onclick="resetTimer('spreektijd')">Reset</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="stopwatch-blok">
-        <div class="stopwatch-inner">
-          <div class="stopwatch-title">Behandeltijd</div>
-          <div class="stopwatch-time" id="behandeltijd">00:00</div>
-          <div class="stopwatch-knoppen">
-            <button onclick="toggleTimer('behandeltijd')" id="toggleBehandeltijd">Start</button>
-            <button onclick="resetTimer('behandeltijd')">Reset</button>
-          </div>
+    <div class="timer-blok">
+      <div class="stopwatch-inner">
+        <div class="stopwatch-title">Spreektijd</div>
+        <div class="stopwatch-time" id="spreektijd">00:00</div>
+        <div class="stopwatch-knoppen">
+          <button onclick="toggleTimer('spreektijd')" id="toggleSpreektijd">Start</button>
+          <button onclick="resetTimer('spreektijd')">Reset</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 
 
