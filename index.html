@@ -236,62 +236,71 @@
   <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
   <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
   <style>
-  .stopwatch-block {
+  .stopwatch-blok {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
-    margin-top: 30px;
+    margin-top: -78px; /* gelijke onderrand met knoppenrij */
   }
 
   .stopwatch-inner {
     background: white;
     color: #02441C;
-    padding: 12px 16px;
-    border-radius: 10px;
+    padding: 16px 32px;
+    border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     font-family: 'Jost', sans-serif;
     font-size: 18px;
     text-align: center;
-    min-width: 140px;
+    min-width: 200px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .stopwatch-time {
     font-size: 26px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
-  .stopwatch-buttons button {
+  .stopwatch-knoppen button {
     background: #009639;
     color: white;
     border: none;
-    padding: 6px 10px;
+    padding: 12px 16px;
     border-radius: 6px;
-    margin: 0 4px;
+    margin: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 100%;
   }
 
-  .stopwatch-buttons button:hover {
+  .stopwatch-knoppen {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .stopwatch-knoppen button:hover {
     background: #007d2d;
   }
 
   @media (max-width: 768px) {
-    .stopwatch-block {
+    .stopwatch-blok {
       justify-content: center;
-    }
-    .stopwatch-inner {
       margin-top: 20px;
     }
   }
 </style>
 
-<div class="stopwatch-block">
+<div class="stopwatch-blok">
   <div class="stopwatch-inner">
     <div class="stopwatch-time" id="stopwatch">00:00</div>
-    <div class="stopwatch-buttons">
-      <button onclick="toggleTimer()"><span id="toggleLabel">Start</span></button>
+    <div class="stopwatch-knoppen">
+      <button onclick="toggleTimer()" id="toggleKnop">Start</button>
       <button onclick="resetTimer()">Reset</button>
     </div>
   </div>
@@ -311,13 +320,13 @@
   function toggleTimer() {
     if (running) {
       clearInterval(stopwatchInterval);
-      document.getElementById("toggleLabel").textContent = "Hervat";
+      document.getElementById("toggleKnop").textContent = "Hervat";
     } else {
       stopwatchInterval = setInterval(() => {
         seconds++;
         updateStopwatchDisplay();
       }, 1000);
-      document.getElementById("toggleLabel").textContent = "Pauzeer";
+      document.getElementById("toggleKnop").textContent = running ? "Hervat" : "Pauzeer";
     }
     running = !running;
   }
@@ -327,11 +336,12 @@
     running = false;
     seconds = 0;
     updateStopwatchDisplay();
-    document.getElementById("toggleLabel").textContent = "Start";
+    document.getElementById("toggleKnop").textContent = "Start";
   }
 
-  updateStopwatchDisplay(); // Start met 00:00
+  updateStopwatchDisplay();
 </script>
+
 
 </div>
 
