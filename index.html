@@ -122,14 +122,7 @@
       min-width: 300px;
     }
 
-    .knoppenrij {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
+
 
     .actieknop {
       padding: 16px 32px;
@@ -144,34 +137,43 @@
       transition: background-color 0.2s;
       text-transform: uppercase;
     }
+.actiecontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* onderkanten uitlijnen */
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.knoppenrij {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .stopwatch-blok {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  width: 100%;
-  margin-top: -40px;
 }
 
 .stopwatch-inner {
   background: white;
   color: #02441C;
-  padding: 16px 32px;
+  padding: 24px 36px; /* groter dan knoppen */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   font-family: 'Jost', sans-serif;
   font-size: 18px;
   text-align: center;
-  min-width: 200px;
-  height: 70px;
+  min-width: 220px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .stopwatch-time {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .stopwatch-knoppen {
@@ -190,16 +192,22 @@
   font-weight: bold;
   font-size: 16px;
   text-transform: uppercase;
-  flex: 1;
+  width: 100px;
 }
 
 .stopwatch-knoppen button:hover {
   background: #007d2d;
 }
-    
-    .actieknop:hover {
-      background-color: #f0f0f0;
-    }
+
+@media (max-width: 768px) {
+  .actiecontainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .stopwatch-inner {
+    margin-top: 20px;
+  }
+}
 
     @media (max-width: 1024px) {
       h2 { font-size: 28px; margin: 6px 0; }
@@ -285,19 +293,23 @@
   <span id="score">VOOR: 0 | TEGEN: 0</span>
 </div>
   <div class="resultaat" id="resultaat"></div>
-<div class="knoppenrij">
-  <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
-  <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
+<div class="actiecontainer">
+  <div class="knoppenrij">
+    <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
+    <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
+  </div>
+
   <div class="stopwatch-blok">
-  <div class="stopwatch-inner">
-    <div class="stopwatch-time" id="stopwatch">00:00</div>
-    <div class="stopwatch-knoppen">
-      <button onclick="toggleTimer()" id="toggleKnop">Start</button>
-      <button onclick="resetTimer()">Reset</button>
+    <div class="stopwatch-inner">
+      <div class="stopwatch-time" id="stopwatch">00:00</div>
+      <div class="stopwatch-knoppen">
+        <button onclick="toggleTimer()" id="toggleKnop">Start</button>
+        <button onclick="resetTimer()">Reset</button>
+      </div>
     </div>
   </div>
 </div>
-</div>
+
 
 
   <script>
