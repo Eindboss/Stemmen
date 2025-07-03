@@ -283,6 +283,11 @@
   }
 }
 
+.stopwatch-knoppen button.reset-knop {
+  background: #e57373; /* zacht rood */
+}
+
+    
     @media (max-width: 1024px) {
       h2 { font-size: 28px; margin: 6px 0; }
       .stemknop { width: 60px; height: 60px; font-size: 22px; margin: 4px; }
@@ -383,7 +388,7 @@
         <div class="stopwatch-time" id="stopwatchL">00:00</div>
         <div class="stopwatch-knoppen">
           <button onclick="toggleTimerL()" id="toggleKnopL">Start</button>
-          <button onclick="resetTimerL()">Reset</button>
+         <button onclick="resetTimer()" class="reset-knop">Reset</button>
         </div>
       </div>
     </div>
