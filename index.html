@@ -235,6 +235,104 @@
 <div class="knoppenrij">
   <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
   <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
+  <style>
+  .stopwatch-block {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 30px;
+  }
+
+  .stopwatch-inner {
+    background: white;
+    color: #02441C;
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Jost', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    min-width: 140px;
+  }
+
+  .stopwatch-time {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .stopwatch-buttons button {
+    background: #009639;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin: 0 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .stopwatch-buttons button:hover {
+    background: #007d2d;
+  }
+
+  @media (max-width: 768px) {
+    .stopwatch-block {
+      justify-content: center;
+    }
+    .stopwatch-inner {
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<div class="stopwatch-block">
+  <div class="stopwatch-inner">
+    <div class="stopwatch-time" id="stopwatch">00:00</div>
+    <div class="stopwatch-buttons">
+      <button onclick="toggleTimer()"><span id="toggleLabel">Start</span></button>
+      <button onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let stopwatchInterval;
+  let running = false;
+  let seconds = 0;
+
+  function updateStopwatchDisplay() {
+    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+    document.getElementById("stopwatch").textContent = `${mins}:${secs}`;
+  }
+
+  function toggleTimer() {
+    if (running) {
+      clearInterval(stopwatchInterval);
+      document.getElementById("toggleLabel").textContent = "Hervat";
+    } else {
+      stopwatchInterval = setInterval(() => {
+        seconds++;
+        updateStopwatchDisplay();
+      }, 1000);
+      document.getElementById("toggleLabel").textContent = "Pauzeer";
+    }
+    running = !running;
+  }
+
+  function resetTimer() {
+    clearInterval(stopwatchInterval);
+    running = false;
+    seconds = 0;
+    updateStopwatchDisplay();
+    document.getElementById("toggleLabel").textContent = "Start";
+  }
+
+  updateStopwatchDisplay(); // Start met 00:00
+</script>
+
 </div>
 
 
