@@ -235,114 +235,6 @@
 <div class="knoppenrij">
   <button class="actieknop" onclick="resetStemmen()">NIEUWE STEMMING</button>
   <button class="actieknop" onclick="maakScreenshot()">Maak screenshot</button>
-  <style>
-  .stopwatch-blok {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -78px; /* gelijke onderrand met knoppenrij */
-  }
-
-  .stopwatch-inner {
-    background: white;
-    color: #02441C;
-    padding: 16px 32px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    font-family: 'Jost', sans-serif;
-    font-size: 18px;
-    text-align: center;
-    min-width: 200px;
-    height: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .stopwatch-time {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .stopwatch-knoppen button {
-    background: #009639;
-    color: white;
-    border: none;
-    padding: 12px 16px;
-    border-radius: 6px;
-    margin: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-    width: 100%;
-  }
-
-  .stopwatch-knoppen {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  .stopwatch-knoppen button:hover {
-    background: #007d2d;
-  }
-
-  @media (max-width: 768px) {
-    .stopwatch-blok {
-      justify-content: center;
-      margin-top: 20px;
-    }
-  }
-</style>
-
-<div class="stopwatch-blok">
-  <div class="stopwatch-inner">
-    <div class="stopwatch-time" id="stopwatch">00:00</div>
-    <div class="stopwatch-knoppen">
-      <button onclick="toggleTimer()" id="toggleKnop">Start</button>
-      <button onclick="resetTimer()">Reset</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  let stopwatchInterval;
-  let running = false;
-  let seconds = 0;
-
-  function updateStopwatchDisplay() {
-    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const secs = String(seconds % 60).padStart(2, '0');
-    document.getElementById("stopwatch").textContent = `${mins}:${secs}`;
-  }
-
-  function toggleTimer() {
-    if (running) {
-      clearInterval(stopwatchInterval);
-      document.getElementById("toggleKnop").textContent = "Hervat";
-    } else {
-      stopwatchInterval = setInterval(() => {
-        seconds++;
-        updateStopwatchDisplay();
-      }, 1000);
-      document.getElementById("toggleKnop").textContent = running ? "Hervat" : "Pauzeer";
-    }
-    running = !running;
-  }
-
-  function resetTimer() {
-    clearInterval(stopwatchInterval);
-    running = false;
-    seconds = 0;
-    updateStopwatchDisplay();
-    document.getElementById("toggleKnop").textContent = "Start";
-  }
-
-  updateStopwatchDisplay();
-</script>
-
-
 </div>
 
 
@@ -461,6 +353,29 @@ if (open > 0) {
   }
 </script>
 
+  <script>
+function updateClock() {
+  const now = new Date();
+
+  const tijd = now.toLocaleTimeString('nl-NL', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  const datum = now.toLocaleDateString('nl-NL', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+document.getElementById('datumtijdje').textContent = `${datum} | ${tijd}`;
+}
+
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
 
 </body>
 </html>
