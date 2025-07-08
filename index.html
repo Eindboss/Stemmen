@@ -380,9 +380,9 @@
   </div>
 </div>
 
-  <div id="onderwerpblok" style="text-align: center; margin: 20px 0;">
-  <label for="onderwerp" style="font-size: 18px; font-weight: bold; color: white;">onderwerp:</label>
-  <input type="text" id="onderwerp" oninput="toonOnderwerp()" placeholder="Typ hier het onderwerp van de stemming..." style="font-size: 18px; padding: 6px; border-radius: 6px; border: none; width: 60%; max-width: 600px;">
+<div id="onderwerpblok" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0;">
+  <label for="onderwerp" style="font-size: 20px; font-weight: bold; color: white;">onderwerp:</label>
+  <div id="onderwerptitel" style="font-size: 20px; font-weight: bold; color: white;"></div>
 </div>
   
   <table id="stemmen">
@@ -571,10 +571,13 @@ if (open > 0) {
 </script>
 
 <script>
-  function toonOnderwerp() {
-    const waarde = document.getElementById("onderwerp").value;
+function toonOnderwerp() {
+  let waarde = prompt("Wat is het onderwerp?");
+  if (waarde) {
     document.getElementById("onderwerptitel").textContent = waarde;
   }
+}
+
 </script>
 
   <script>
