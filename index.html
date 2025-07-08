@@ -19,7 +19,15 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-   
+#onderwerp.blur {
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  outline: none;
+}
+    
     body {
       font-family: 'Jost', sans-serif;
       margin: 0;
@@ -364,21 +372,7 @@
   vertical-align: middle;
   line-height: 1;
 }
-
-    .verborgen {
-  display: none;
-}
-
-#onderwerpWeergave {
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  border: 1px solid white;
-  border-radius: 6px;
-  padding: 4px 8px;
-  background-color: transparent;
-}
-    
+  
   </style>
 </head>
 <body>
@@ -394,10 +388,9 @@
 </div>
 
 
-<div id="onderwerpblok" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0;">
-  <label for="onderwerpInput" style="font-size: 20px; font-weight: bold; color: white;">onderwerp:</label>
-  <input id="onderwerpInput" type="text" onblur="toonOnderwerp()" onfocus="toonInput()" placeholder="typ hier het onderwerp..." />
-  <span id="onderwerpWeergave" class="verborgen"></span>
+<div id="onderwerpblok" style="display: flex; justify-content: center; align-items: baseline; gap: 10px; margin: 20px 0;">
+  <label for="onderwerp" style="font-size: 20px; font-weight: bold; color: white;">onderwerp:</label>
+  <input id="onderwerp" type="text" oninput="toonOnderwerp()" placeholder="typ hier het onderwerp..." />
 </div>
 
   
@@ -671,22 +664,22 @@ updateDisplay("stopwatchR", secondsR);
   </script>
 
 <script>
-function toonOnderwerp() {
-  const input = document.getElementById("onderwerpInput");
-  const span = document.getElementById("onderwerpWeergave");
-  if (input.value.trim() !== "") {
-    span.textContent = input.value;
-    input.style.display = "none";
-    span.classList.remove("verborgen");
-  }
-}
+  const onderwerpInput = document.getElementById("onderwerp");
 
-function toonInput() {
-  const input = document.getElementById("onderwerpInput");
-  const span = document.getElementById("onderwerpWeergave");
-  input.style.display = "inline-block";
-  span.classList.add("verborgen");
-}
+  onderwerpInput.addEventListener("focus", () => {
+    onderwerpInput.classList.remove("blur");
+  });
+
+  onderwerpInput.addEventListener("blur", () => {
+    if (onderwerpInput.value.trim() !== "") {
+      onderwerpInput.classList.add("blur");
+    }
+  });
+
+  // Als je bij laden al tekst hebt
+  if (onderwerpInput.value.trim() !== "") {
+    onderwerpInput.classList.add("blur");
+  }
 </script>
   
 </body>
