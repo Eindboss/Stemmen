@@ -7,6 +7,23 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
 
+#onderwerp {
+  background-color: white;
+  color: #02441C;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 6px;
+  width: 60%;
+  max-width: 600px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#onderwerp.blur {
+  background-color: transparent;
+  color: white;
+}
+    
     body {
       font-family: 'Jost', sans-serif;
       margin: 0;
@@ -636,8 +653,27 @@ function resetTimerR() {
 
 updateDisplay("stopwatchL", secondsL);
 updateDisplay("stopwatchR", secondsR);
+
+  </script>
+
+<script>
+  const onderwerpInput = document.getElementById("onderwerp");
+
+  onderwerpInput.addEventListener("focus", () => {
+    onderwerpInput.classList.remove("blur");
+  });
+
+  onderwerpInput.addEventListener("blur", () => {
+    if (onderwerpInput.value.trim() !== "") {
+      onderwerpInput.classList.add("blur");
+    }
+  });
+
+  // Als je bij laden al tekst hebt
+  if (onderwerpInput.value.trim() !== "") {
+    onderwerpInput.classList.add("blur");
+  }
 </script>
-
-
+  
 </body>
 </html>
