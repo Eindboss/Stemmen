@@ -359,12 +359,6 @@
   </div>
 </div>
 
-  <div id="onderwerpblok" style="text-align: center; margin: 20px 0;">
-  <label for="onderwerp" style="font-size: 18px; font-weight: bold; color: white;">Onderwerp:</label>
-  <input type="text" id="onderwerp" oninput="toonOnderwerp()" placeholder="Typ hier het onderwerp van de stemming..." style="font-size: 18px; padding: 6px; border-radius: 6px; border: none; width: 60%; max-width: 600px;">
-  <div id="onderwerptitel" style="margin-top: 15px; font-size: 24px; font-weight: bold; color: white;"></div>
-</div>
-  
   <table id="stemmen">
     <tr id="kop">
 <th class="kolom-fractie">fractie</th>
@@ -547,13 +541,6 @@ if (open > 0) {
       link.href = canvas.toDataURL();
       link.click();
     });
-  }
-</script>
-
-<script>
-  function toonOnderwerp() {
-    const waarde = document.getElementById("onderwerp").value;
-    document.getElementById("onderwerptitel").textContent = waarde;
   }
 </script>
 
